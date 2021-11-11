@@ -1,0 +1,8 @@
+<h1>Lists:</h1>
+
+<p><i class="fas fa-plus"></i> <%= link_to "Create new list", new_list_path() %></p>
+
+
+  <% @lists.each do |list| %>
+      <h3><%= link_to list.name, list_path(list) %></h3>
+  <% end %>
