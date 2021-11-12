@@ -2,17 +2,23 @@
 
 <p><%= link_to "<< Go Back to Lists", lists_path() %></p>
 
-<p><i class="fas fa-plus"></i> <%= link_to "Create a bookmark", new_list_bookmark_path(@list) %></p>
-
 <h3>Bookmarks</h3>
-<ol>
+
   <% @list.bookmarks.each do |bookmark| %>
-    <li>
       Comment: <%= bookmark.comment %>
-      <ul>
-         <li>Movie: <%= bookmark.movie.title  %></li>
-      </ul>
-    </li>
+      Movie: <%= bookmark.movie.title  %>
     <%= link_to "X Delete", bookmark_path(bookmark), method: :delete, data: { confirm: "Really?" } %>
   <% end %>
-</ol>
+
+
+<h4>Create a bookmark</h4>
+
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :comment %>
+  <h2>List: <%= @list.name %></h2>
+  <br>
+  <%= f.association :movie, prompt: 'Select a movie for your bookmark...' %>
+  <br>
+  <br>
+  <%= f.submit %>
+<% end %>
